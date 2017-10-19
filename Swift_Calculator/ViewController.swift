@@ -26,17 +26,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
     /// 「C」「=」以外のButton押下時の処理
     ///
     /// - Parameter sender: UIButtonのインスタンス
     @IBAction func mInputFormulaAction(_ sender: UIButton) {
-        //
+        //nilチェック
         guard let formulaText = mFormulaLbl.text else {
             //nilだったらreturn
             return
         }
-        
         guard let senderedText = sender.titleLabel?.text else {
             //「sender.titleLabel?.text」:Buttonのタイトルを取得する
             //nilだったらreturn
@@ -75,7 +73,6 @@ class ViewController: UIViewController {
         
     }
     
-    
     /// 入力された整数に「.0」を追加して少数として追加する
     /// また、「÷」を「/」へ、「×」を「*」へ変換する
     ///
@@ -91,9 +88,9 @@ class ViewController: UIViewController {
             range: nil
         ).replacingOccurrences(of: "÷", with: "/").replacingOccurrences(of: "×", with: "*")
         
+        print("正規表現変換後:\(formattedFormula)")
         return formattedFormula
     }
-    
     
     /// Expressionフレームワークで文字列の計算式を評価して答えを求める
     ///
@@ -103,7 +100,10 @@ class ViewController: UIViewController {
         do{
             let expression = Expression(formula)
             let answer = try expression.evaluate()
-            return formatAnswer(String(answer))
+            let formattedAnswer = formatAnswer(String(answer))
+            
+            print("式評価後:\(formattedAnswer)")
+            return formattedAnswer
         
         }catch{
             //計算式が不当だった場合
@@ -121,6 +121,8 @@ class ViewController: UIViewController {
             with: "",
             options: NSString.CompareOptions.regularExpression,
             range: nil)
+        
+        print("小数点以下判定後:\(formattedeAnswer)")
         return formattedeAnswer
     }
 }
