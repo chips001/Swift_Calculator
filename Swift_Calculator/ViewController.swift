@@ -46,7 +46,6 @@ class ViewController: UIViewController {
         
     }
 
-    
     /// 「C」Button押下時の処理
     ///
     /// - Parameter sender: UIButtonの処理
@@ -55,12 +54,11 @@ class ViewController: UIViewController {
         mAnswerLbl.text = ""
     }
     
-    
     /// 「=」Bitton押下時の処理
     ///
     /// - Parameter sender: UIButtonの処理
     @IBAction func mCalculateAnswerAction(_ sender: UIButton) {
-        
+        //nilチェック
         guard let formulaText = mFormulaLbl.text else {
             //nilだったらreturn
             return
@@ -97,14 +95,17 @@ class ViewController: UIViewController {
     /// - Parameter formula:入力された式
     /// - Returns: 計算の答えor不当な式であった場合のMsg
     private func evalFormula(_ formula:String) -> String{
+        //do でスコープを作成
         do{
             let expression = Expression(formula)
+            //try で処理
             let answer = try expression.evaluate()
             let formattedAnswer = formatAnswer(String(answer))
             
             print("式評価後:\(formattedAnswer)")
             return formattedAnswer
         
+        //catch節で投げられるであろうエラーをハンドリング
         }catch{
             //計算式が不当だった場合
             return "Sorry...Please formula!!"
