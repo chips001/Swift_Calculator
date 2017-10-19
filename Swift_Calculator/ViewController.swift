@@ -107,7 +107,7 @@ class ViewController: UIViewController {
         
         }catch{
             //計算式が不当だった場合
-            return "Please Formula"
+            return "Sorry...Please formula!!"
         }
     }
     
